@@ -1,45 +1,43 @@
 """
-Susbtring with Concatenation of All Words - 
-1. All words in the words list are of same length.
-Input: s = "barfoothefoobarman", words = ["foo","bar"]
-Output: [0,9]
-Create a wordmap with Counter(words)
-Now, since the words are of same size, 
-the combination of words should each be in the string s. 
-so we need to check for occurance of each len(words)*lenght of each word
-in each of the s in steps. If it does occur, then we record the starting index of the occurance
-then move to the next step. 
-So it's a sliding window of lenght len(words)*length of each word. 
-But within each window, we need to confirm if every occurance of the wordmap exists.
-if it doens't we break out of the look that is checking if there is a match.
-We also break out if the occurance of the word in the current window exceeds the occurance in words list.
+Longest valid paranthesis - 
+Example 1:
+Input: s = "(()"
+Output: 2
+Explanation: The longest valid parentheses substring is "()".
+Example 2:
+Input: s = ")()())"
+Output: 4
+Explanation: The longest valid parentheses substring is "()()".
+Example 3:
+Input: s = ""
+Output: 0
+
+Approach - 
+use a stack to keep track of the valid paranthesis with the indexes of each value in the stack.
+start with stack = [-1] or any non negative number.
+Now, as we travers through the string with the index numbers, 
+if the value of the char is '(', then we add the index to the stack
+If it's a ')' then we pop from the stack. 
+so once the max valid paranthesis breaks so to speak,
+we just find the delta of current i to the last i on the stack.
+Which gives us the max span. Then we keep track of max span by comparing with max(current,past)
 """
 
-s = "barfoothefoobarman"
-words = ["foo", "bar"]
-from collections import Counter
 
-
-def substring_occurances(s: str, words: list[str]) -> list[int]:
-    word_count = Counter(words)
-    word_len = len(words[0])
-    window_span = len(words[0]) * len(words)
-    res = []
-    if window_span > len(s):
-        return []
-    for i in range(len(s) - window_span + 1):
-        seen_map = Counter()
-        for j in range(i, i + window_span, word_len):
-            current_word = s[j : j + word_len]
-            if current_word not in word_count:
-                break
-            if current_word in word_count:
-                seen_map[current_word] += 1
-            if seen_map[current_word] > word_count[current_word]:
-                break
+def max_paranthesis(s: str) -> int:
+    stack = [-1]
+    max_result = 0
+    for i in range(len(s)):
+        if s[i] == "(":
+            stack.append(i)
         else:
-            res.append(i)
-    return res
+            stack.pop()
+            if not stack:
+                stack.append(i)
+            else:
+                max_result = max(max_result, i - stack[-1])
+    return max_result
 
 
-print(substring_occurances(s, words))
+s = "(()(((((())))))"
+print(max_paranthesis(s))
