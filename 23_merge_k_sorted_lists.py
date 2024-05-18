@@ -52,30 +52,38 @@ class ListNode:
             node = node.next
         return "->".join(lst)
 
+
 import heapq
-def merge_k_sorted_lists(lsts:list[ListNode]) -> ListNode:
+
+
+def merge_k_sorted_lists(lsts: list[ListNode]) -> ListNode:
     heap = []
     count = 0
     for node in lsts:
         if node:
-            heap.append((node.val,count,node))
-            count+=1
+            heap.append((node.val, count, node))
+            count += 1
     heapq.heapify(heap)
     head = ListNode()
     current_node = head
     while heap:
         val, _, node = heapq.heappop(heap)
-        current_node.next = ListNode(val = val)
+        current_node.next = ListNode(val=val)
         current_node = current_node.next
         if node.next:
-            heapq.heappush(heap, (node.next.val,count, node.next))
-            count+=1
+            heapq.heappush(heap, (node.next.val, count, node.next))
+            count += 1
     return head.next
-        
+
+
 lst1 = [1, 4, 5]
 lst2 = [1, 3, 4]
 lst3 = [2, 6]
-lsts = [ListNode.build_nodelist(lst1), ListNode.build_nodelist(lst2), ListNode.build_nodelist(lst3)]
+lsts = [
+    ListNode.build_nodelist(lst1),
+    ListNode.build_nodelist(lst2),
+    ListNode.build_nodelist(lst3),
+]
 # print(ListNode.print_nodelist(lst1))
 res_node = merge_k_sorted_lists(lsts)
 print(ListNode.print_nodelist(res_node))
