@@ -1,4 +1,6 @@
 from typing import List
+
+
 # class Solution:
 #     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
 #         s=[]
@@ -21,35 +23,27 @@ from typing import List
 #             return s[n//2]
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        def popper(nums1,nums2):
-            if nums1 and nums2:
-                if nums1[0]<nums2[0]:
-                    val=nums1.pop(0)
-                else:
-                    val=nums2.pop(0)
-            elif nums1:
-                val=nums1.pop(0)
-            elif nums2:
-                val=nums2.pop(0)
-            return val,nums1,nums2
-        s=[]
-        n=len(nums1)+len(nums2)-1
-        if (n+1)%2==0:
-            even=True
+        # nums1 = [1, 2, 7]
+        # nums2 = [3, 4, 5, 6]
+
+        # def median(nums1: list[int], nums2: list[int]) -> int:
+        merged = []
+        while nums1 and nums2:
+            if nums1[0] <= nums2[0]:
+                merged.append(nums1.pop(0))
+            else:
+                merged.append(nums2.pop(0))
+        if nums1:
+            merged.extend(nums1)
+        elif nums2:
+            merged.extend(nums2)
+        n = len(merged) - 1
+        if len(merged) % 2 == 0:
+            return (merged[n // 2] + merged[n // 2 + 1]) / 2
         else:
-            even=False
-        cur=n
-        while nums1 or nums2:
-            cur-=1
-            val,nums1,nums2=popper(nums1,nums2)
-            if cur==n//2:
-                if not even:
-                    val2,nums1,nums2=popper(nums1,nums2)
-                    return val2
-                else:
-                    val2,nums1,nums2=popper(nums1,nums2)
-                    return (val+val2)/2
+            return merged[n // 2]
+
 
 nums1 = []
-nums2 = [1]     
-print(Solution().findMedianSortedArrays(nums1,nums2))
+nums2 = [1]
+print(Solution().findMedianSortedArrays(nums1, nums2))
