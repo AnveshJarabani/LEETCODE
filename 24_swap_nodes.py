@@ -1,15 +1,18 @@
-'''
+"""
 swap nodes without modifying values - 
 take the node and the next node 
 just point the next node to the previous node. 
 now the previs node should point to the next node. 
 done. 
-'''
+"""
+
 
 class ListNode:
-    def __init__(self, val = 0, next = None):
+    def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
 def swap_nodes(head):
     dummy = ListNode()
     dummy.next = head
