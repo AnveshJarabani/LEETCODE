@@ -1,59 +1,50 @@
-#     # if nums.count(0)==len(nums) and len(nums)>2:
-#     #     return [[0,0,0]]
-#     nums.sort()
-#     span = len(nums)
-#     k = 0
-#     j, l = k + 1, span - 1
-#     lst = []
-#     while k < span - 2:
-#         if j < l:
-#             sum = nums[k] + nums[j] + nums[l]
-#             if sum < 0:
-#                 while nums[j] == nums[j + 1] and j < l - 1:
-#                     j += 1
-#                 j += 1
-#             elif sum > 0:
-#                 while nums[l] == nums[l - 1] and j < l - 1:
-#                     l -= 1
-#                 l -= 1
-#             elif sum == 0:
-#                 lst.append([nums[k], nums[j], nums[l]])
-#                 print([nums[k], nums[j], nums[l]], " K= ", k)
-#                 while nums[j] == nums[j + 1] and j < l - 1:
-#                     j += 1
-#                 j += 1
-#         else:
-#             while nums[k] == nums[k + 1] and k < span - 2:
-#                 k += 1
-#             k += 1
-#             j, l = k + 1, span - 1
-#     return lst
+"""
+Approach - 
+3Sum = 0  Problem --
+Keep track of three pointers - start, mid, end
+two loops - 
+first loop - 
+start moves from 0 to len(list) - 3 & mid and end moves from mid + 1 to end -1 and end moves from end to mid -1
+second loop - 
+mid and end travels towards each other while checking if the list[start] + list[mid] + list[end] ==0
+in which case, it will add the start, mid, end values to the result subset list and append to the final list. 
+
+edge cases - 
+if the list is only 3 elements -> check if it's sum to zero then return the result. 
+
+if the start and mid elements have same values after the existing element, 
+keep traversing until the next value is not the same as the start / mid. 
+"""
 
 
-def threeSum(nums):
-    if len(nums) == 3 and sum(nums) == 0:
-        return [nums]
-    nums.sort()
-    i, j, k = 0, 1, len(nums) - 1
-    result = []
-    while i < len(nums) - 3:
-        target_sum = -nums[i]
-        while j < k:
-            if nums[j] + nums[k] > target_sum:
-                k -= 1
-            elif nums[j] + nums[k] < target_sum:
-                j += 1
+def three_sum(lst: list[int]) -> list[list[int]]:
+    if len(lst) < 3:
+        return []
+    span = len(lst)
+    lst.sort()
+    result_list = []
+    for start in range(span - 2):
+        if start > 0 and lst[start] == lst[start - 1]:
+            continue
+        mid, end = start + 1, span - 1
+        while mid < end:
+            s = lst[start] + lst[mid] + lst[end]
+            if s < 0:
+                mid += 1
+            elif s > 0:
+                end -= 1
             else:
-                result.append([nums[i], nums[j], nums[k]])
-                j += 1
-                while nums[j] == nums[j - 1] and j < k:
-                    j += 1
-        i += 1
-        while nums[i] == nums[i - 1] and i < len(nums) - 2:
-            i += 1
-        j = i + 1
-        k = len(nums) - 1
-    return result
+                result_list.append([lst[start], lst[mid], lst[end]])
+                while mid < end and lst[mid] == lst[mid + 1]:
+                    mid += 1
+                while mid < end and lst[end] == lst[end - 1]:
+                    end -= 1
+                mid += 1
+                end -= 1
+    return result_list
 
 
-print(threeSum(list(map(int, input().split(",")))))
+nums = [1, -1, -1, 0]
+nums2 = [-1, 0, 1, 2, -1, -4]
+print(three_sum(nums))
+print(three_sum(nums2))
