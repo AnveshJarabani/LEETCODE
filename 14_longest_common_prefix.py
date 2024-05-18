@@ -6,6 +6,7 @@ Sort the list of strings. The common prefix of all strings will also be the comm
 Initialize the common prefix as an empty string.
 """
 
+
 def prefix(strs: list[str]) -> str:
     if len(strs) == 0 or "" in strs:
         return ""
