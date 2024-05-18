@@ -1,27 +1,45 @@
-from typing import List
-class Solution:
-    def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        word_span=len(words[0])
-        len_substr=word_span*len(words)
-        words_map={i:words.count(i) for i in set(words)}
-        if len_substr>len(s):
-            return []
-        i,res=0,[]
-        while i<(len(s)-len_substr)+1:
-            cur_str=s[i:i+len_substr]
-            p,str_lst=0,[]
-            while p<len(cur_str):
-                str_lst.append(cur_str[p:p+word_span])
-                p+=word_span
-            # for word in words: 
-            #     if word in str_lst:
-            #         str_lst.remove(word)
-            #     else:
-            #         break
-            sub_map={i:str_lst.count(i) for i in set(str_lst)}
-            if sub_map==words_map:
-                res.append(i)
-            i+=1
-        return res
+"""
+Susbtring with Concatenation of All Words - 
+1. All words in the words list are of same length.
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Create a wordmap with Counter(words)
+Now, since the words are of same size, 
+the combination of words should each be in the string s. 
+so we need to check for occurance of each len(words)*lenght of each word
+in each of the s in steps. If it does occur, then we record the starting index of the occurance
+then move to the next step. 
+So it's a sliding window of lenght len(words)*length of each word. 
+But within each window, we need to confirm if every occurance of the wordmap exists.
+if it doens't we break out of the look that is checking if there is a match.
+We also break out if the occurance of the word in the current window exceeds the occurance in words list.
+"""
 
-print(Solution().findSubstring(s = "barfoothefoobarman", words = ["foo","bar"]))
+s = "barfoothefoobarman"
+words = ["foo", "bar"]
+from collections import Counter
+
+
+def substring_occurances(s: str, words: list[str]) -> list[int]:
+    word_count = Counter(words)
+    word_len = len(words[0])
+    window_span = len(words[0]) * len(words)
+    res = []
+    if window_span > len(s):
+        return []
+    for i in range(len(s) - window_span + 1):
+        seen_map = Counter()
+        for j in range(i, i + window_span, word_len):
+            current_word = s[j : j + word_len]
+            if current_word not in word_count:
+                break
+            if current_word in word_count:
+                seen_map[current_word] += 1
+            if seen_map[current_word] > word_count[current_word]:
+                break
+        else:
+            res.append(i)
+    return res
+
+
+print(substring_occurances(s, words))
