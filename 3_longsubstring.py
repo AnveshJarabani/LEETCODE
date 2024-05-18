@@ -7,12 +7,12 @@ you start with no set and then keep updating the set as you traverse a given str
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        lp, result = 0, 0
-        char_set = set()
-        for rp in range(len(s)):
-            while s[rp] in char_set:
-                char_set.remove(s[lp])
-                lp += 1
-            char_set.add(s[rp])
-            result = max(result, rp - lp + 1)
-        return result
+        start, max_substr = 0, 0
+        seen = set()
+        for end in range(len(s)):
+            while s[end] in seen:
+                seen.remove(s[start])
+                start += 1
+            seen.add(s[end])
+            max_substr = max(max_substr, end - start + 1)
+        return max_substr
