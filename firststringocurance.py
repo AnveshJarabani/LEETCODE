@@ -1,14 +1,22 @@
-needle=input()
-haystack=input()
-def needle_index(haystack,needle):
-    result=0
-    while haystack!="":
+"""
+Find the index of the first occurance in a string. 
+Approach - 
+Keep removing the first value of the current string 
+until the string "startswith" the target / given string, then return  the index value
+Keep track of the index value with a counter. 
+"""
+
+
+def first_occurance(haystack: str, needle: str) -> int:
+    counter = 0
+    while haystack:
         if haystack.startswith(needle):
-            return result
-        else:
-            haystack=haystack[1:]
-            result+=1
+            return counter
+        haystack = haystack[1:]
+        counter += 1
     return -1
-result=needle_index(haystack,needle)
-print(result)
-    
+
+
+haystack = "sadbutsad"
+needle = "sad"
+print(first_occurance(haystack, needle))
