@@ -16,8 +16,9 @@ bst -
 search for the value and it doesn't exist, just give the median where it should be placed.
 """
 
-def search_insert_position(nums : list[int], target: int) -> int:
-    left, right = 0, len(nums) -1
+
+def search_insert_position(nums: list[int], target: int) -> int:
+    left, right = 0, len(nums) - 1
     while left <= right:
         mid = (left + right) // 2
         if nums[mid] == target:
@@ -28,6 +29,7 @@ def search_insert_position(nums : list[int], target: int) -> int:
             right = mid - 1
     return left
 
-print(search_insert_position(nums = [1,3,5,6], target = 5) == 2)
-print(search_insert_position(nums = [1,3,5,6], target = 2) == 1)
-print(search_insert_position(nums = [1,3,5,6], target = 7) == 4)
+
+print(search_insert_position(nums=[1, 3, 5, 6], target=5) == 2)
+print(search_insert_position(nums=[1, 3, 5, 6], target=2) == 1)
+print(search_insert_position(nums=[1, 3, 5, 6], target=7) == 4)
