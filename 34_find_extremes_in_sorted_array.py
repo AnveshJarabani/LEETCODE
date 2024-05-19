@@ -23,7 +23,8 @@ then return the result.
 
 def find_extremes(nums: list[int], target: int) -> list[int]:
     if not nums:
-        return [-1,-1]
+        return [-1, -1]
+
     def left_extreme() -> int:
         left, right = 0, len(nums) - 1
         while left <= right:
@@ -50,6 +51,6 @@ def find_extremes(nums: list[int], target: int) -> list[int]:
 
 
 # nums = [5, 7, 7, 8, 8, 10]
-nums= [2,2]
+nums = [2, 2]
 target = 8
 print(find_extremes(nums, target))
