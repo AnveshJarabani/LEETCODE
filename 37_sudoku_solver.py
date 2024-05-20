@@ -10,37 +10,40 @@ If at any point it's a false, We return False, else keep going till the last val
 
 def solve_sudoku(board: list[list[str]]) -> list[list[str]]:
     # Find if the number can be used at the current position in the board
-    def is_valid(board, row, col, num):
+    def is_valid(row, col, num):
         for x in range(9):
             if board[row][x] == num:
                 return False
-            if board[x][col] == num:
+        for x in range(9):
+            if num in board[x][col]:
                 return False
         start_row, start_col = row - row % 3, col - col % 3
-        for x in range(3):
-            for y in range(3):
-                if board[start_row + x][start_col + y] == num:
+        for i in range(3):
+            for j in range(3):
+                if board[start_row + i][start_col + j] == num:
                     return False
         return True
+
+    # Recursively check if the values from 1 - 9 can be placed on each cell of the board
     def solve(board):
         for row in range(9):
             for col in range(9):
-                if board[row][col] == '.':
-                    s = '123456789'
-                    for num in s:
-                        if is_valid(board,row,col,num):
+                if board[row][col] == ".":
+                    for num in "123456789":
+                        if is_valid(row, col, num):
                             board[row][col] = num
                             if solve(board):
                                 return True
-                        board[row][col] = '.'
-                    return False
-        return True
-    
-    if not board: return None
-    if solve(board): return board
-                    
+                            board[row][
+                                col
+                            ] = "."  # Put the . back if there is no solution
+                    return False  # Return False if a number can't be placed.
+        return True  # return True if the board is full.
 
-        
+    if not board:
+        return None
+    if solve(board):
+        return board
 
 
 board = [
