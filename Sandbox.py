@@ -25,15 +25,16 @@ Big O Time - log(N^(T/M)) and space - log(T/M)
 
 
 def combination_sum(candidates: list[int], target: int) -> list[list[int]]:
-    def backtrack(current_sum: int, combination: list, idx: int):
+    def backtrack(current_sum: int, combination: list[int], idx: int):
         if current_sum == 0:
             result.append(list(combination))
             return
-        elif current_sum < 0:
+        if current_sum < 0:
             return
         for i in range(idx, len(candidates)):
-            combination.append(candidates[i])
-            backtrack(current_sum - candidates[i], combination, i)
+            val = candidates[i]
+            combination.append(val)
+            backtrack(current_sum - val, combination, i)
             combination.pop()
 
     result = []
