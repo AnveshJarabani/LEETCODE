@@ -14,17 +14,21 @@ Input: nums = [7,8,9,11,12]
 Output: 1
 Explanation: The smallest positive integer 1 is missing.
 """
+
+
 def smallest_positive_integer(nums: list[int]) -> int:
     if not nums:
         return 1
     span = len(nums)
     for i in range(span):
         if 0 < nums[i] <= span and nums[nums[i] - 1] != nums[i]:
-            nums[nums[i] - 1] , nums[i] = nums[i], nums[nums[i] - 1]
+            nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
     for i in range(span):
         if nums[i] != i + 1:
             return i + 1
     return span + 1
-print (smallest_positive_integer(nums = [1,2,0]),3)
-print (smallest_positive_integer(nums = [3,4,-1,1]),2)
-print (smallest_positive_integer(nums = [7,8,9,11,12]),1)
+
+
+print(smallest_positive_integer(nums=[1, 2, 0]), 3)
+print(smallest_positive_integer(nums=[3, 4, -1, 1]), 2)
+print(smallest_positive_integer(nums=[7, 8, 9, 11, 12]), 1)
