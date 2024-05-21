@@ -1,24 +1,34 @@
-from typing import List
+"""
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+Example 1:
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+Example 2:
+Input: nums = [0,1]
+Output: [[0,1],[1,0]]
+Example 3:
+Input: nums = [1]
+Output: [[1]]
+
+Approach - 
+use backtrack algo to find all combinations and just return
+"""
 
 
-class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(nums, path, callstack=[]):
-            callstack.append(path)
-            print(callstack)
-            if not nums:
-                result.append(path)
-                callstack.pop()
-                print(f"result={result}")
- 
-                print(callstack)
-                return
-            for i in range(len(nums)):
-                backtrack(nums[:i] + nums[i + 1 :], path + [nums[i]], callstack)
+def permute(nums: list[int]) -> list[list[int]]:
+    def backtrack(nums, path):
+        if not nums:
+            result.append(path)
+        for i in range(len(nums)):
+            backtrack(nums[:i] + nums[i + 1 :], path + [nums[i]])
 
-        result = []
-        backtrack(nums, [])
-        return result
+    result = []
+    backtrack(nums, [])
+    return result
 
 
-print(Solution().permute([1, 2, 3]))
+print(
+    permute(nums=[1, 2, 3]), " res = [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
+)
+print(permute(nums=[0, 1]), "[[0,1],[1,0]]")
+print(permute(nums=[1]), "[[1]]")

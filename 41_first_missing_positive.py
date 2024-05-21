@@ -21,7 +21,7 @@ def smallest_positive_integer(nums: list[int]) -> int:
         return 1
     span = len(nums)
     for i in range(span):
-        if 0 < nums[i] <= span and nums[nums[i] - 1] != nums[i]:
+        while 0 < nums[i] <= span and nums[nums[i] - 1] != nums[i]:
             nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
     for i in range(span):
         if nums[i] != i + 1:

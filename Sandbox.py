@@ -1,30 +1,34 @@
 """
-Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.
-You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
 Example 1:
-Input: nums = [1,2,0]
-Output: 3
-Explanation: The numbers in the range [1,2] are all in the array.
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 Example 2:
-Input: nums = [3,4,-1,1]
-Output: 2
-Explanation: 1 is in the array but 2 is missing.
+Input: nums = [0,1]
+Output: [[0,1],[1,0]]
 Example 3:
-Input: nums = [7,8,9,11,12]
-Output: 1
-Explanation: The smallest positive integer 1 is missing.
+Input: nums = [1]
+Output: [[1]]
+
+Approach - 
+use backtrack algo to find all combinations and just return
 """
-def smallest_positive_integer(nums: list[int]) -> int:
-    if not nums:
-        return 1
-    span = len(nums)
-    for i in range(span):
-        if 0 < nums[i] <= span and nums[nums[i] - 1] != nums[i]:
-            nums[nums[i] - 1] , nums[i] = nums[i], nums[nums[i] - 1]
-    for i in range(span):
-        if nums[i] != i + 1:
-            return i + 1
-    return span + 1
-print (smallest_positive_integer(nums = [1,2,0]),3)
-print (smallest_positive_integer(nums = [3,4,-1,1]),2)
-print (smallest_positive_integer(nums = [7,8,9,11,12]),1)
+
+
+def permute(nums: list[int]) -> list[list[int]]:
+    def backtrack(nums, path):
+        if not nums:
+            result.append(path)
+        for i in range(len(nums)):
+            backtrack(nums[:i] + nums[i + 1 :], path + [nums[i]])
+
+    result = []
+    backtrack(nums, [])
+    return result
+
+
+print(
+    permute(nums=[1, 2, 3]), " res = [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
+)
+print(permute(nums=[0, 1]), "[[0,1],[1,0]]")
+print(permute(nums=[1]), "[[1]]")
