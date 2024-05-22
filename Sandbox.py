@@ -1,36 +1,30 @@
 """
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
 Example 1:
-Input: strs = ["eat","tea","tan","ate","nat","bat"]
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 Example 2:
-Input: strs = [""]
-Output: [[""]]
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
 Example 3:
-Input: strs = ["a"]
-Output: [["a"]]
-
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 Approach - 
-Create a dictionary with keys as sorted list of the str chars in each value, 
-then for each value, if the sorted(str) is the key, then append to the value. 
-return the dict values as a list.
+Dynamic programming implementation 
 """
+def max_sum(nums: list[int]) -> int:
+    cur_sum =  max_sum = nums[0]
+    for num in nums[1:]:
+        cur_sum = max(cur_sum+num,num) # choose either to keep the current sum so far or add current num whicheever is bigger
+        max_sum = max(max_sum, cur_sum) # update the max sum with current_sum consideration for max value
+    return max_sum
 
-
-def group_anagrams(strs: list[str]) -> list[list[str]]:
-    sorted_dict = (
-        {}
-    )  # initialize a dictionary to group the anagrams as values of the dict.
-    for s in strs:
-        key = "".join(sorted(s))
-        sorted_dict.setdefault(key,[]).append(key)
-    return list(sorted_dict.values())
-
-
-print(
-    group_anagrams(strs=["eat", "tea", "tan", "ate", "nat", "bat"]),
-    'Output: [["bat"],["nat","tan"],["ate","eat","tea"]]',
-)
-print(group_anagrams(strs=[""]), 'Output: [[""]]')
-print(group_anagrams(strs=["a"]), 'Output: [["a"]]')
+print(max_sum(nums = [-2,1,-3,4,-1,2,1,-5,4]),
+"Output: 6")
+print(max_sum(nums = [1]),
+"Output: 1")
+print(max_sum(nums = [5,4,-1,7,8]),
+"Output: 23")
