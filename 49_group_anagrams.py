@@ -24,7 +24,7 @@ def group_anagrams(strs: list[str]) -> list[list[str]]:
     )  # initialize a dictionary to group the anagrams as values of the dict.
     for s in strs:
         key = "".join(sorted(s))
-        sorted_dict.setdefault(key,[]).append(key)
+        sorted_dict.setdefault(key, []).append(key)
     return list(sorted_dict.values())
 
 
