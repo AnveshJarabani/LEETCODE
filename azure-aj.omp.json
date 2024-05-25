@@ -65,8 +65,7 @@
           "template": " \uf68c {{ .Name }} "
         },
         {
-          "background": "#f1184c",
-          "background_templates": ["{{ if eq .Code 0 }}#15d535{{ end }}"],
+          "background": "#2ac80b",
           "foreground": "#000000",
           "type": "session",
           "properties": {
@@ -82,5 +81,10 @@
   ],
   "console_title_template": "{{ .Shell }} in {{ .Folder }}",
   "final_space": true,
-  "version": 2
+  "version": 2,
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "#aaff00",
+    "template": "\ue285\ue285 "
+  }
 }
