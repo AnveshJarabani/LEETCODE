@@ -1,34 +1,16 @@
 """
-Given a string s consisting of words and spaces, return the length of the last word in the string.
-A word is a maximal substring consisting of non-space characters only.
+Given a positive integer n,
+generate an n x n matrix filled with elements from 1 to n2 in spiral order.
 Example 1:
-Input: s = "Hello World"
-Output: 5
-Explanation: The last word is "World" with length 5.
+Input: n = 3
+Output: [[1,2,3],[8,9,4],[7,6,5]]
 Example 2:
-Input: s = "   fly me   to   the moon  "
-Output: 4
-Explanation: The last word is "moon" with length 4.
-Example 3:
-Input: s = "luffy is still joyboy"
-Output: 6
-Explanation: The last word is "joyboy" with length 6.
+Input: n = 1
+Output: [[1]]
 """
-
-
-def len_lastword(s: str) -> int:
-    return len(s.split()[-1]) if s.split()[-1] else 0
-
-
-print(
-    len_lastword(s="Hello World"),
-    'Explanation: The last word is "World" with length 5.',
-)
-print(
-    len_lastword(s="   fly me   to   the moon  "),
-    'Explanation: The last word is "moon" with length 4.',
-)
-print(
-    len_lastword(s="luffy is still joyboy"),
-    'Explanation: The last word is "joyboy" with length 6.',
-)
+def spiral_matrix(n: int) -> list[list[int]]:
+    nums = [i for i in range(1,n*n+1)]
+    matrix = [[] for _ in range(n)]
+    for row in range(n):
+        matrix[row] = nums[1:n+1]
+        
