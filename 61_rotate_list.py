@@ -8,11 +8,17 @@ Example 2:
 Input: head = [0,1,2], k = 4
 Output: [2,0,1]
 """
+
+
 class ListNode:
-    def __init__(self, val = 0, next = None):
+    def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
 from typing import Optional
+
+
 class Solution:
     def rotate_list(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         # Calculate the length of the node list
@@ -21,7 +27,7 @@ class Solution:
         length = 1
         while cur_node.next:
             cur_node = cur_node.next
-            length+=1
+            length += 1
         k %= length
         cur_node.next = head
         cur_node = cur_node.next
