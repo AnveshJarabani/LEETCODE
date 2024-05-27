@@ -1,4 +1,4 @@
-'''
+"""
 There is a robot on an m x n grid.
 The robot is initially located at the top-left corner (i.e., grid[0][0]).
 The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]).
@@ -15,12 +15,16 @@ Explanation: From the top-left corner, there are a total of 3 ways to reach the 
 1. Right -> Down -> Down
 2. Down -> Down -> Right
 3. Down -> Right -> Down
-'''
-def  unique_paths(m: int, n: int) -> int:
-    dp = [[1]*n for _ in range(m)]
+"""
+
+
+def unique_paths(m: int, n: int) -> int:
+    dp = [[1] * n for _ in range(m)]
     for i in range(1, m):
         for j in range(1, n):
-            dp[i][j] = dp[i-1][j]+dp[i][j-1]
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
     return dp[-1][-1]
-print(unique_paths(m = 3, n = 7),"Output: 28")
-print(unique_paths(m = 3, n = 2),"Output: 3")
+
+
+print(unique_paths(m=3, n=7), "Output: 28")
+print(unique_paths(m=3, n=2), "Output: 3")
